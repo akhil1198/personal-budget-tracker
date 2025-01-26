@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
 
-const Table = ({ records }) => {
+const Table = ({ records, category }) => {
     const [filters, setFilters] = useState({
         category: '',
         startDate: '',
         endDate: '',
     });
-    const [categories, setCategories] = useState([]);
+    const [categories, setCategories] = useState(category);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(5);
 
@@ -16,11 +16,6 @@ const Table = ({ records }) => {
         const { name, value } = e.target;
         setFilters((prev) => ({ ...prev, [name]: value }));
     };
-
-    useEffect(() => {
-        const uniqueCategories = [...new Set(records.map((item) => item.category))];
-        setCategories(uniqueCategories);
-    }, [records]);
 
     // Resetting the filters
     const handleResetFilters = () => {
@@ -70,7 +65,7 @@ const Table = ({ records }) => {
                         className="border p-2 rounded-lg w-full sm:w-48"
                     >
                         <option value="">All Categories</option>
-                        {categories.map((category, index) => (
+                        {categories && categories.map((category, index) => (
                             <option key={index} value={category}>
                                 {category}
                             </option>
@@ -189,7 +184,7 @@ const Table = ({ records }) => {
                                 key={page}
                                 onClick={() => handlePageChange(page)}
                                 className={`px-2 sm:px-3 py-1 rounded-lg text-sm sm:text-md ${currentPage === page
-                                    ? 'bg-blue-600 text-white'
+                                    ? 'bg-button text-white'
                                     : 'bg-gray-100 hover:bg-gray-200'
                                     }`}
                             >

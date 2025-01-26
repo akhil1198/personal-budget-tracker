@@ -14,9 +14,10 @@ import {
     ResponsiveContainer,
 } from 'recharts';
 
-const Graphs = ({ records }) => {
-    const [graphType, setGraphType] = useState('Bar'); // Default to bar graph
+const Graphs = ({ records, category }) => {
+    const [graphType, setGraphType] = useState('Bar');
 
+    // Getting all the categories and amount data for graphs
     const categoryData = Object.values(
         records.reduce((acc, record) => {
             acc[record.category] = acc[record.category] || { category: record.category, total: 0 };
@@ -25,8 +26,7 @@ const Graphs = ({ records }) => {
         }, {})
     );
 
-    // Get current month expenses for the line chart
-    const currentMonth = new Date().getMonth(); // Current month (0-11)
+    const currentMonth = new Date().getMonth();
     const currentMonthData = records
         .filter((record) => new Date(record.date).getMonth() === currentMonth)
         .map((record) => ({
@@ -34,12 +34,12 @@ const Graphs = ({ records }) => {
             amount: record.amount,
         }));
 
-    // Colors for Pie Chart
+    console.log(currentMonthData)
+
     const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#AF19FF'];
 
     return (
-        <div className="p-4 space-y-6">
-            {/* Dropdown to select graph type */}
+        <div className="p-4 space-y-2">
             <div className="flex justify-center mb-4">
                 <select
                     value={graphType}
@@ -54,6 +54,9 @@ const Graphs = ({ records }) => {
 
             {graphType === 'Bar' && (
                 <div className="overflow-x-auto">
+                    <p className="text-sm text-center text-gray-500 mb-4">
+                        This chart shows the total expenses for each category in a bar format.
+                    </p>
                     <ResponsiveContainer
                         width={categoryData.length > 5 ? categoryData.length * 150 : '100%'}
                         height={400}
@@ -71,6 +74,9 @@ const Graphs = ({ records }) => {
 
             {graphType === 'Pie' && (
                 <div className="overflow-hidden">
+                    <p className="text-sm text-center text-gray-500 mb-4">
+                        This pie chart represents the proportion of expenses for each category.
+                    </p>
                     <ResponsiveContainer width="100%" height={400}>
                         <PieChart>
                             <Pie
@@ -79,7 +85,7 @@ const Graphs = ({ records }) => {
                                 nameKey="category"
                                 cx="50%"
                                 cy="50%"
-                                outerRadius={150}
+                                outerRadius={100}
                                 fill="#8884d8"
                                 label={(entry) => entry.category}
                             >
@@ -95,6 +101,9 @@ const Graphs = ({ records }) => {
 
             {graphType === 'Line' && (
                 <div className="overflow-hidden">
+                    <p className="text-sm text-center text-gray-500 mb-4">
+                        This line chart shows the daily expenses recorded for the current month.
+                    </p>
                     <ResponsiveContainer width="100%" height={400}>
                         <LineChart data={currentMonthData}>
                             <XAxis dataKey="date" tick={{ fontSize: 12 }} />
