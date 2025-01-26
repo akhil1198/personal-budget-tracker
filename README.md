@@ -1,6 +1,6 @@
 # Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was deployed at [https://etracker-weld.vercel.app]([http://localhost:3000](https://etracker-weld.vercel.app)).
 
 ## Available Scripts
 
