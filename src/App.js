@@ -48,7 +48,7 @@ const ExpenseTracker = () => {
 			<div className="max-w-3xl mx-auto p-4 bg-background">
 				<div className="text-center m-5 slex grid grid-cols-2">
 					<h1 className="text-2xl sm:text-3xl font-bold text-button text-left">E-Tracker</h1>
-					<div className="text-center slex grid grid-cols-2 gap-x-4">
+					<div className="text-center slex grid grid-cols-2 gap-x-2">
 						<button type="button"
 							onClick={(() => handleViewTypeChange('Add'))}
 							className={`max-w-sm p-2 text-sm sm:text-md font-medium rounded-lg transition-colors ${viewType === 'Add'
