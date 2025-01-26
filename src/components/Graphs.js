@@ -39,7 +39,7 @@ const Graphs = ({ records, category }) => {
     const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#AF19FF'];
 
     return (
-        <div className="p-4 space-y-2">
+        <div className="p-1 space-y-2">
             <div className="flex justify-center mb-4">
                 <select
                     value={graphType}
